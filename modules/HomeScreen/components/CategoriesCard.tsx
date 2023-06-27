@@ -6,7 +6,7 @@ interface CategoriesCardProps {
 }
 const CategoriesCard = ({imageUrl, title}: CategoriesCardProps) => {
   return (
-    <TouchableOpacity className="relative">
+    <TouchableOpacity className="relative mx-2">
       <Image
         source={{
           uri: imageUrl,

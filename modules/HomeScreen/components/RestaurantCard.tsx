@@ -3,6 +3,7 @@ import {StarIcon} from 'react-native-heroicons/solid';
 import {MapPinIcon} from 'react-native-heroicons/outline';
 import {useNavigation} from '@react-navigation/native';
 import {ImageUrlProps, RestaurantCardProps} from '../types';
+import {baseApiUrl} from '../../common/constants';
 
 const RestaurantCard = ({
   title,
@@ -11,7 +12,6 @@ const RestaurantCard = ({
   imageUrl,
 }: RestaurantCardProps) => {
   const navigation = useNavigation();
-  const baseUrl = 'http://172.27.128.1:1337';
 
   return (
     <TouchableOpacity
@@ -25,7 +25,7 @@ const RestaurantCard = ({
         })
       }>
       {imageUrl.map((item: ImageUrlProps) => {
-        const imageUrl = `${baseUrl}${item.attributes.url}`;
+        const imageUrl = `${baseApiUrl}${item.attributes.url}`;
 
         return (
           <Image
