@@ -6,11 +6,11 @@ import HomeScreenHeader from './components/HeaderSection';
 import CategoriesSection from './components/CategoriesSection';
 import FeaturedRowSection from './components/FeaturedRowSection';
 import {RestoData} from './types';
+import {baseApiUrl} from '../common/constants';
 
 const HomeScreen = (): JSX.Element => {
   const navigation = useNavigation();
-  const url =
-    'http://172.27.128.1:1337/api/featureds?populate=restaurants.imageRestaurant';
+  const url = `${baseApiUrl}/api/featureds?populate=restaurants.imageRestaurant`;
   const [restaurants, setRestaurants] = useState<RestoData[]>([]);
   const fetchRestaurants = async () => {
     try {
