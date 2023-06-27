@@ -1,17 +1,14 @@
 import {View, Text, ScrollView} from 'react-native';
 import {ArrowRightIcon} from 'react-native-heroicons/outline';
 import RestaurantCard from './RestaurantCard';
-interface FeaturedRowSectionProps {
-  title: string;
-  featuredCategory: string;
-  description: string;
-  id: string;
-}
+import {FeaturedRowSectionProps} from '../types';
+
 const FeaturedRowSection = ({
   id,
   title,
   featuredCategory,
   description,
+  restaurants,
 }: FeaturedRowSectionProps) => {
   return (
     <View>
@@ -23,29 +20,18 @@ const FeaturedRowSection = ({
       <ScrollView
         horizontal
         contentContainerStyle={{
-          paddingHorizontal: 15,
+          paddingHorizontal: 10,
         }}
         className="pt-4">
-        <RestaurantCard
-          title="My Restaurant"
-          ratings={'4.5'}
-          location="China"
-        />
-        <RestaurantCard
-          title="My Restaurant"
-          ratings={'4.5'}
-          location="Philippines"
-        />
-        <RestaurantCard
-          title="My Restaurant"
-          ratings={'4.5'}
-          location="China"
-        />
-        <RestaurantCard
-          title="My Restaurant"
-          ratings={'4.5'}
-          location="China"
-        />
+        {restaurants.map(card => (
+          <RestaurantCard
+            imageUrl={card.attributes.imageRestaurant.data}
+            key={card.attributes.id}
+            title={card.attributes.title}
+            ratings={card.attributes.ratings}
+            location={card.attributes.location}
+          />
+        ))}
       </ScrollView>
     </View>
   );

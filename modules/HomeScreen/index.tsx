@@ -1,12 +1,32 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import HomeScreenHeader from './components/HeaderSection';
 import CategoriesSection from './components/CategoriesSection';
 import FeaturedRowSection from './components/FeaturedRowSection';
+import {RestoData} from './types';
+
 const HomeScreen = (): JSX.Element => {
   const navigation = useNavigation();
+  const url =
+    'http://172.27.128.1:1337/api/featureds?populate=restaurants.imageRestaurant';
+  const [restaurants, setRestaurants] = useState<RestoData[]>([]);
+  const fetchRestaurants = async () => {
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+      });
+      const data = await res.json();
+      setRestaurants(data.data);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -23,33 +43,19 @@ const HomeScreen = (): JSX.Element => {
       <ScrollView
         className="bg-gray-100 h-screen"
         contentContainerStyle={{
-          paddingBottom: 100,
+          paddingBottom: 200,
         }}>
         <CategoriesSection />
-        <FeaturedRowSection
-          id="123"
-          title="Featured 1"
-          featuredCategory="discount"
-          description="This is a description"
-        />
-        <FeaturedRowSection
-          id="1234"
-          title="Featured 2"
-          featuredCategory="discount"
-          description="This is a description"
-        />
-        <FeaturedRowSection
-          id="1236"
-          title="Featured 3"
-          featuredCategory="discount"
-          description="This is a description"
-        />
-        <FeaturedRowSection
-          id="125"
-          title="Featured 4"
-          featuredCategory="featured"
-          description="This is a description"
-        />
+        {restaurants.map(resto => (
+          <FeaturedRowSection
+            restaurants={resto.attributes.restaurants.data}
+            key={resto.attributes.id}
+            id={resto.attributes.id}
+            title={resto.attributes.title}
+            featuredCategory={resto.attributes.featuredCategory}
+            description={resto.attributes.description}
+          />
+        ))}
       </ScrollView>
       {/* END */}
     </SafeAreaView>

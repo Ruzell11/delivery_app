@@ -1,22 +1,43 @@
 import {TouchableOpacity, Image, View, Text} from 'react-native';
 import {StarIcon} from 'react-native-heroicons/solid';
-import {MapPinIcon, Mark} from 'react-native-heroicons/outline';
+import {MapPinIcon} from 'react-native-heroicons/outline';
+import {useNavigation} from '@react-navigation/native';
+import {ImageUrlProps, RestaurantCardProps} from '../types';
 
-interface RestaurantCardProps {
-  title: string;
-  ratings: string;
-  location: string;
-}
+const RestaurantCard = ({
+  title,
+  ratings,
+  location,
+  imageUrl,
+}: RestaurantCardProps) => {
+  const navigation = useNavigation();
+  const baseUrl = 'http://172.27.128.1:1337';
 
-const RestaurantCard = ({title, ratings, location}: RestaurantCardProps) => {
   return (
-    <TouchableOpacity className="bg-white mr-3 shadow">
-      <Image
-        source={{
-          uri: 'https://links.papareact.com/wru',
-        }}
-        className="h-36 w-72 rounded-sm object-contain"
-      />
+    <TouchableOpacity
+      className="bg-white mr-3 shadow"
+      onPress={() =>
+        navigation.navigate('Restaurant', {
+          title: title,
+          ratings: ratings,
+          location: location,
+          imageUrl: imageUrl,
+        })
+      }>
+      {imageUrl.map((item: ImageUrlProps) => {
+        const imageUrl = `${baseUrl}${item.attributes.url}`;
+
+        return (
+          <Image
+            source={{
+              uri: imageUrl,
+            }}
+            alt={item.attributes.name}
+            className="h-36 w-72 rounded-sm object-contain"
+          />
+        );
+      })}
+
       <View className="px-3 pb-4">
         <Text className="font-bold text-lg pt-2 text-black">{title}</Text>
         <View className="flex-row items-center space-x-1">
