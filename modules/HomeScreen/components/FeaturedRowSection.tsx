@@ -1,7 +1,8 @@
 import {View, Text, ScrollView} from 'react-native';
 import {ArrowRightIcon} from 'react-native-heroicons/outline';
 import RestaurantCard from './RestaurantCard';
-import {FeaturedRowSectionProps} from '../types';
+import {FeaturedRowSectionProps} from '../../common/types';
+import {uniqueId} from 'lodash';
 
 const FeaturedRowSection = ({
   id,
@@ -25,8 +26,10 @@ const FeaturedRowSection = ({
         className="pt-4">
         {restaurants.map(card => (
           <RestaurantCard
+            menu={card.attributes.menus}
+            featuredCategory={featuredCategory}
             imageUrl={card.attributes.imageRestaurant.data}
-            key={card.attributes.id}
+            key={uniqueId()}
             title={card.attributes.title}
             ratings={card.attributes.ratings}
             location={card.attributes.location}

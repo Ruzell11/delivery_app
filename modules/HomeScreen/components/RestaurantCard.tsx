@@ -2,14 +2,17 @@ import {TouchableOpacity, Image, View, Text} from 'react-native';
 import {StarIcon} from 'react-native-heroicons/solid';
 import {MapPinIcon} from 'react-native-heroicons/outline';
 import {useNavigation} from '@react-navigation/native';
-import {ImageUrlProps, RestaurantCardProps} from '../types';
+import {ImageUrlProps, RestaurantCardProps} from '../../common/types';
 import {baseApiUrl} from '../../common/constants';
+import {uniqueId} from 'lodash';
 
 const RestaurantCard = ({
   title,
   ratings,
   location,
   imageUrl,
+  featuredCategory,
+  menu,
 }: RestaurantCardProps) => {
   const navigation = useNavigation();
 
@@ -18,10 +21,12 @@ const RestaurantCard = ({
       className="bg-white mr-3 shadow"
       onPress={() =>
         navigation.navigate('Restaurant', {
+          featuredCategory: featuredCategory,
           title: title,
           ratings: ratings,
           location: location,
           imageUrl: imageUrl,
+          menu: menu,
         })
       }>
       {imageUrl.map((item: ImageUrlProps) => {
@@ -29,6 +34,7 @@ const RestaurantCard = ({
 
         return (
           <Image
+            key={uniqueId()}
             source={{
               uri: imageUrl,
             }}

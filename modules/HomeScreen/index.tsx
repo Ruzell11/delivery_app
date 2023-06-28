@@ -5,12 +5,13 @@ import {useNavigation} from '@react-navigation/native';
 import HomeScreenHeader from './components/HeaderSection';
 import CategoriesSection from './components/CategoriesSection';
 import FeaturedRowSection from './components/FeaturedRowSection';
-import {RestoData} from './types';
+import {RestoData} from '../common/types';
 import {baseApiUrl} from '../common/constants';
+import {uniqueId} from 'lodash';
 
 const HomeScreen = (): JSX.Element => {
   const navigation = useNavigation();
-  const url = `${baseApiUrl}/api/featureds?populate=restaurants.imageRestaurant`;
+  const url = `${baseApiUrl}/api/featureds?populate[restaurants][populate]=*`;
   const [restaurants, setRestaurants] = useState<RestoData[]>([]);
   const fetchRestaurants = async () => {
     try {
@@ -49,7 +50,7 @@ const HomeScreen = (): JSX.Element => {
         {restaurants.map(resto => (
           <FeaturedRowSection
             restaurants={resto.attributes.restaurants.data}
-            key={resto.attributes.id}
+            key={uniqueId()}
             id={resto.attributes.id}
             title={resto.attributes.title}
             featuredCategory={resto.attributes.featuredCategory}
