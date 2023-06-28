@@ -1,9 +1,16 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {useLayoutEffect} from 'react';
+import {baseApiUrl} from '../common/constants';
+import {ImageUrlProps} from '../common/types';
+import {uniqueId} from 'lodash';
+import {ArrowLeftIcon} from 'react-native-heroicons/outline';
+import ImageSection from './components/ImageSection';
+import RestaurantDetailsSection from './components/RestaurantDetailsSection';
+import MenuSection from './components/MenuSection';
 const RestaurantScreen = () => {
   const {
-    params: {title, ratings, location, imageUrl},
+    params: {title, ratings, location, imageUrl, featuredCategory, menu},
   } = useRoute();
   const navigation = useNavigation();
 
@@ -14,9 +21,18 @@ const RestaurantScreen = () => {
   }, []);
 
   return (
-    <View>
-      <Text>{title}</Text>
-    </View>
+    <ScrollView>
+      <View className="relative">
+        <ImageSection imageUrl={imageUrl} />
+        <RestaurantDetailsSection
+          featuredCategory={featuredCategory}
+          title={title}
+          ratings={ratings}
+          location={location}
+        />
+        <MenuSection menu={menu} />
+      </View>
+    </ScrollView>
   );
 };
 

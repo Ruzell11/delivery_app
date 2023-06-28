@@ -2,6 +2,7 @@ import {Text, ScrollView} from 'react-native';
 import CategoriesCard from './CategoriesCard';
 import {baseApiUrl} from '../../common/constants';
 import React, {useEffect, useState} from 'react';
+import {uniqueId} from 'lodash';
 
 const CategoriesSection = () => {
   const [categories, setCategories] = useState([]);
@@ -21,7 +22,7 @@ const CategoriesSection = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
-  console.log(categories);
+
   return (
     <ScrollView
       horizontal
@@ -42,7 +43,7 @@ const CategoriesSection = () => {
         const imageUrl = getImageUrl();
         return (
           <CategoriesCard
-            key={category.attributes.id}
+            key={uniqueId()}
             imageUrl={`${baseApiUrl}${imageUrl[0]}`}
             title={category.attributes.title}
           />

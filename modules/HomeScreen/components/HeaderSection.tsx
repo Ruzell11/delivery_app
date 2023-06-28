@@ -1,6 +1,7 @@
 import {Text, View, Image, TextInput} from 'react-native';
 import {ChevronDownIcon, UserIcon} from 'react-native-heroicons/outline';
 import SearchSection from './SearchSection';
+import {primaryColor} from '../../common/constants';
 
 const HomeScreenHeader = () => {
   return (
@@ -16,10 +17,10 @@ const HomeScreenHeader = () => {
           <Text className="font-bold text-gray-400 text-xs">Deliver Now!</Text>
           <Text className="text-black font-bold text-xl">
             Current Location
-            <ChevronDownIcon size={20} color="#00CCBB" />
+            <ChevronDownIcon size={20} color={primaryColor} />
           </Text>
         </View>
-        <UserIcon size={35} color="#00CCBB" />
+        <UserIcon size={35} color={primaryColor} />
       </View>
       <SearchSection />
     </>

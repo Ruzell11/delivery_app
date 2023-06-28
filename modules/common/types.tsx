@@ -32,12 +32,14 @@ export interface RestaurantData {
 
 export interface ImageUrlProps {
   attributes: {
+    id: string;
     url: string;
     name: string;
   };
 }
 
 export interface RestaurantCardProps {
+  featuredCategory: string;
   title: string;
   ratings: string;
   location: string;
