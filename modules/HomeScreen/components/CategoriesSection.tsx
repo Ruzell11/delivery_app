@@ -6,7 +6,8 @@ import {uniqueId} from 'lodash';
 
 const CategoriesSection = () => {
   const [categories, setCategories] = useState([]);
-  const url = `${baseApiUrl}/api/categories?populate=*`;
+  const url = `${baseApiUrl}/api/categories?populate=category_image&populate=restaurants.imageRestaurant`;
+
   const fetchCategories = async () => {
     try {
       const res = await fetch(url, {
@@ -43,6 +44,7 @@ const CategoriesSection = () => {
         const imageUrl = getImageUrl();
         return (
           <CategoriesCard
+            restoList={category.attributes.restaurants}
             key={uniqueId()}
             imageUrl={`${baseApiUrl}${imageUrl[0]}`}
             title={category.attributes.title}

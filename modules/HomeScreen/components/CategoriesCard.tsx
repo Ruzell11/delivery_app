@@ -1,12 +1,22 @@
+import {useNavigation} from '@react-navigation/native';
 import {Text, TouchableOpacity, Image} from 'react-native';
 
 interface CategoriesCardProps {
   imageUrl: string;
   title: string;
+  restoList: object;
 }
-const CategoriesCard = ({imageUrl, title}: CategoriesCardProps) => {
+const CategoriesCard = ({imageUrl, title, restoList}: CategoriesCardProps) => {
+  const navigate = useNavigation();
+
   return (
-    <TouchableOpacity className="relative mx-2">
+    <TouchableOpacity
+      onPress={() =>
+        navigate.navigate('Category', {
+          restoList,
+        })
+      }
+      className="relative mx-2">
       <Image
         source={{
           uri: imageUrl,
