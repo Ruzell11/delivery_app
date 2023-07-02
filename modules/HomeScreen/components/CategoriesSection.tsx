@@ -1,4 +1,4 @@
-import {Text, ScrollView} from 'react-native';
+import {Text, ScrollView, View} from 'react-native';
 import CategoriesCard from './CategoriesCard';
 import {baseApiUrl} from '../../common/constants';
 import React, {useEffect, useState} from 'react';
@@ -6,7 +6,7 @@ import {uniqueId} from 'lodash';
 
 const CategoriesSection = () => {
   const [categories, setCategories] = useState([]);
-  const url = `${baseApiUrl}/api/categories?populate=category_image&populate=restaurants.imageRestaurant`;
+  const url = `${baseApiUrl}/api/categories?populate=category_image&populate=restaurants.imageRestaurant&populate=restaurants.menus`;
 
   const fetchCategories = async () => {
     try {
@@ -24,6 +24,13 @@ const CategoriesSection = () => {
     fetchCategories();
   }, []);
 
+  if (categories?.length < 1 || categories == null) {
+    return (
+      <View className="flex justify-center items-center pt-3">
+        <Text>No Categories for now please come back later!.</Text>
+      </View>
+    );
+  }
   return (
     <ScrollView
       horizontal

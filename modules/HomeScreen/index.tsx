@@ -1,5 +1,5 @@
 import React, {useLayoutEffect, useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView} from 'react-native';
+import {SafeAreaView, ScrollView, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import HomeScreenHeader from './components/HeaderSection';
@@ -47,7 +47,13 @@ const HomeScreen = (): JSX.Element => {
           paddingBottom: 200,
         }}>
         <CategoriesSection />
-        {restaurants.map(resto => (
+        {restaurants?.length < 1 ||
+          (restaurants == null && (
+            <View className="flex justify-center items-center pt-3">
+              <Text>No Featured for now please come back later!.</Text>
+            </View>
+          ))}
+        {restaurants?.map(resto => (
           <FeaturedRowSection
             restaurants={resto.attributes.restaurants.data}
             key={uniqueId()}

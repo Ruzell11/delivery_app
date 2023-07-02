@@ -7,7 +7,7 @@ import {baseApiUrl, primaryColor} from '../common/constants';
 
 const CategoriesScreen = () => {
   const {
-    params: {restoList},
+    params: {restoList, tag},
   } = useRoute();
 
   const navigation = useNavigation();
@@ -31,9 +31,21 @@ const CategoriesScreen = () => {
           return uri;
         };
         const imageUrl = getImageUrl();
+        console.log(restoDetails);
 
         return (
-          <TouchableOpacity className="bg-white border p-4 border-gray-200 ">
+          <TouchableOpacity
+            className="bg-white border p-4 border-gray-200 "
+            onPress={() =>
+              navigation.navigate('Restaurant', {
+                featuredCategory: tag,
+                title: restoDetails.attributes.title,
+                imageUrl: restoDetails.attributes.imageRestaurant.data,
+                menu: restoDetails.attributes.menus,
+                ratings: restoDetails.attributes.ratings,
+                location: restoDetails.attributes.location,
+              })
+            }>
             <View className="flex-row items-center">
               <View className="flex-1 pr-2">
                 <Text className="text-lg mb-1 text-black opacity-75">
