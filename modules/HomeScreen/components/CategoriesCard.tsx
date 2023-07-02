@@ -14,6 +14,7 @@ const CategoriesCard = ({imageUrl, title, restoList}: CategoriesCardProps) => {
       onPress={() =>
         navigate.navigate('Category', {
           restoList,
+          tag: title,
         })
       }
       className="relative mx-2">

@@ -23,15 +23,15 @@ const RestaurantDetailsSection = ({
         <View className="flex-row  space-x- my-1 space-x-5">
           <View className="flex-row items-center space-x-1">
             <StarIcon color="green" opacity={0.5} size={22} />
-            <Text>{ratings}</Text>
+            <Text className="text-black">{ratings}</Text>
           </View>
           <View className="flex-row items-center space-x-1">
             <MapPinIcon size="22" color="gray" />
-            <Text>{location}</Text>
+            <Text className="text-black">{location}</Text>
           </View>
           <View className=" flex-row items-cente space-x-1">
             <TagIcon size={22} color="gray" />
-            <Text>{featuredCategory}</Text>
+            <Text className="text-black">{featuredCategory}</Text>
           </View>
         </View>
         <Text className="text-gray-500 mt-5 pb-4">

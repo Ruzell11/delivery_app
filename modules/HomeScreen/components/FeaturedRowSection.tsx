@@ -17,7 +17,7 @@ const FeaturedRowSection = ({
         <Text className="font-bold text-lg text-black">{title}</Text>
         <ArrowRightIcon color="#00CCBB" />
       </View>
-      <Text className="text-sm px-4">{description}</Text>
+      <Text className="text-sm px-4 text-black">{description}</Text>
       <ScrollView
         horizontal
         contentContainerStyle={{
