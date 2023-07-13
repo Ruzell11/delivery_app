@@ -1,7 +1,6 @@
 import {View, Text} from 'react-native';
 import {MapPinIcon, TagIcon} from 'react-native-heroicons/outline';
 import {StarIcon} from 'react-native-heroicons/solid';
-import {primaryColor} from '../../common/constants';
 
 interface RestaurantDetailsSectionProps {
   title: string;

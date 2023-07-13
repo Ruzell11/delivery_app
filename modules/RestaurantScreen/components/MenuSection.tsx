@@ -1,32 +1,48 @@
-import {useState} from 'react';
-import {uniqueId} from 'lodash';
-import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
-import {MinusCircleIcon, PlusCircleIcon} from 'react-native-heroicons/outline';
-import {primaryColor} from '../../common/constants';
-import AddQuantity from './AddQuantiy';
+import React, {useState} from 'react';
+import {Text, View} from 'react-native';
+
 import MenuCard from './MenuCard';
-const MenuSection = ({menu}) => {
+import AddQuantity from './AddQuantiy';
+
+interface MenuSectionProps {
+  menu: {
+    data: {
+      id: number;
+      attributes: {
+        menu_title: string;
+        menu_description: string;
+        menu_price: string;
+      };
+    }[];
+  };
+}
+
+const MenuSection = ({menu}: MenuSectionProps) => {
   const [isAddingQuantity, setIsAddingQuantity] = useState(false);
-  const [quantity, setQuantity] = useState(0);
 
   return (
-    <>
-      <Text className="text-xl font-bold px-4 pb-2 text-black">Menu</Text>
-      {menu.data.map(item => {
-        return (
-          <>
-            <MenuCard
-              item={item}
-              setIsAddingQuantity={setIsAddingQuantity}
-              isAddingQuantity={isAddingQuantity}
-            />
-            {isAddingQuantity ? (
-              <AddQuantity quantity={quantity} setQuantity={setQuantity} />
-            ) : null}
-          </>
-        );
-      })}
-    </>
+    <View className="pb-36">
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          paddingHorizontal: 4,
+          paddingBottom: 2,
+          color: 'black',
+        }}>
+        Menu
+      </Text>
+      {menu.data.map((item, index) => (
+        <React.Fragment key={index}>
+          <MenuCard
+            item={item}
+            setIsAddingQuantity={setIsAddingQuantity}
+            isAddingQuantity={isAddingQuantity}
+          />
+          {isAddingQuantity && <AddQuantity item={item} />}
+        </React.Fragment>
+      ))}
+    </View>
   );
 };
 

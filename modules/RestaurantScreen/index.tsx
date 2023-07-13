@@ -8,6 +8,7 @@ import {ArrowLeftIcon} from 'react-native-heroicons/outline';
 import ImageSection from './components/ImageSection';
 import RestaurantDetailsSection from './components/RestaurantDetailsSection';
 import MenuSection from './components/MenuSection';
+import MenuBasket from '../MenuBasket';
 const RestaurantScreen = () => {
   const {
     params: {title, ratings, location, imageUrl, featuredCategory, menu},
@@ -21,18 +22,21 @@ const RestaurantScreen = () => {
   }, []);
 
   return (
-    <ScrollView>
-      <View className="relative">
-        <ImageSection imageUrl={imageUrl} />
-        <RestaurantDetailsSection
-          featuredCategory={featuredCategory}
-          title={title}
-          ratings={ratings}
-          location={location}
-        />
-        <MenuSection menu={menu} />
-      </View>
-    </ScrollView>
+    <>
+      <ScrollView>
+        <View className="relative">
+          <ImageSection imageUrl={imageUrl} />
+          <RestaurantDetailsSection
+            featuredCategory={featuredCategory}
+            title={title}
+            ratings={ratings}
+            location={location}
+          />
+          <MenuSection menu={menu} />
+        </View>
+      </ScrollView>
+      <MenuBasket />
+    </>
   );
 };
 
