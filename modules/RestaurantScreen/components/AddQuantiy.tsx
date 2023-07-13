@@ -1,26 +1,59 @@
-import {View, Text} from 'react-native';
-import {MinusCircleIcon, PlusCircleIcon} from 'react-native-heroicons/outline';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {MinusCircleIcon, PlusCircleIcon} from 'react-native-heroicons/solid';
 import {primaryColor} from '../../common/constants';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  addToBasket,
+  removeToBasket,
+  selectSpecificItems,
+} from '../../common/store/basket';
+import {RootState} from '../../common/store';
 
 interface AddQuantityProps {
-  quantity: number;
-  setQuantity: (prev: number | ((prev: number) => number)) => void;
+  item: {
+    id: number;
+    attributes: {
+      menu_title: string;
+      menu_description: string;
+      menu_price: string;
+    };
+  };
 }
 
-const AddQuantity = ({quantity, setQuantity}: AddQuantityProps) => {
-  const addQuantity = () => setQuantity(prev => prev + 1);
-  const minusQuantiy = () =>
-    quantity > 0 ? setQuantity(prev => prev - 1) : null;
+const AddQuantity = ({item}: AddQuantityProps) => {
+  const itemsInTheBasket = useSelector((state: RootState) =>
+    selectSpecificItems(state, item.id),
+  );
+  const dispatch = useDispatch();
+  const addItemToBasket = () => {
+    dispatch(
+      addToBasket({
+        menu_name: item.attributes.menu_title,
+        menu_price: item.attributes.menu_price,
+        menu_description: item.attributes.menu_description,
+        id: item.id,
+      }),
+    );
+  };
+
+  const removeItemsFromBasket = () => {
+    if (itemsInTheBasket.length < 1) return;
+    dispatch(removeToBasket({id: item.id}));
+  };
+
   return (
     <View className="bg-white px-4 pb-3">
       <View className="flex-row space-x-2 items-center">
-        <MinusCircleIcon
-          size={30}
-          color={primaryColor}
-          onPress={minusQuantiy}
-        />
-        <Text>{quantity}</Text>
-        <PlusCircleIcon size={30} color={primaryColor} onPress={addQuantity} />
+        <TouchableOpacity onPress={removeItemsFromBasket}>
+          <MinusCircleIcon
+            size={35}
+            color={itemsInTheBasket.length < 1 ? 'gray' : primaryColor}
+          />
+        </TouchableOpacity>
+        <Text>{itemsInTheBasket.length}</Text>
+        <TouchableOpacity onPress={addItemToBasket}>
+          <PlusCircleIcon size={35} color={primaryColor} />
+        </TouchableOpacity>
       </View>
     </View>
   );

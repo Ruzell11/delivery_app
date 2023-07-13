@@ -5,6 +5,7 @@ import RestaurantScreen from './modules/RestaurantScreen';
 import CategoriesScreen from './modules/CategoriesScreen';
 import {Provider} from 'react-redux';
 import {store} from './modules/common/store';
+import BasketScreen from './modules/MenuBasket/BasketScreen';
 
 const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
@@ -15,6 +16,15 @@ function App(): JSX.Element {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Restaurant" component={RestaurantScreen} />
           <Stack.Screen name="Category" component={CategoriesScreen} />
+          <Stack.Screen
+            name="Basket"
+            component={BasketScreen}
+            options={{
+              presentation: 'modal',
+              headerShown: false,
+              animation: 'flip',
+            }}
+          />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>
